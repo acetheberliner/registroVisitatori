@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 
-namespace Template.Infrastructure.AspNetCore
+namespace Template.Web.Infrastructure.AspNetCore
 {
     public static class HtmlInputExtension
     {
