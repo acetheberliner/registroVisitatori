@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Template.Web.Models.Visitatore>
+@{
+    ViewData["Title"] = "Registro Visitatori";
+    Layout = "_LayoutHtml";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark">Visitatori attualmente presenti</h2>
+        <a class="btn btn-primary shadow-sm" href="/RegistroVisitatori/Crea">
+            <i class="fa-solid fa-user-plus"></i> Registra nuovo
+        </a>
+    </div>
+
+    <div class="table-responsive shadow-sm">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Azienda</th>
+                    <th>Ingresso</th>
+                    <th>Motivo</th>
+                    <th>Uscita</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var v in Model)
+                {
+                    <tr>
+                        <td>@v.Nome</td>
+                        <td>@v.Cognome</td>
+                        <td>@v.Azienda</td>
+                        <td>@v.DataIngresso.ToString("g")</td>
+                        <td>@v.MotivoVisita</td>
+                        <td>
+                            <form method="post" asp-action="SegnaUscita" asp-route-id="@v.Id" class="m-0">
+                                <button class="btn btn-sm btn-outline-danger" title="Segna uscita">
+                                    <span>Segna uscita</span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

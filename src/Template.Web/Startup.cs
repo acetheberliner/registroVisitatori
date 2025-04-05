@@ -13,6 +13,7 @@ using System.Linq;
 using Template.Services;
 using Template.Web.Infrastructure;
 using Template.Web.SignalR.Hubs;
+using Template.Web.Data;
 
 namespace Template.Web
 {
@@ -72,6 +73,12 @@ namespace Template.Web
                 options.ViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
             });
 
+            services.AddControllersWithViews();
+
+            // 👉 Aggiungiamo il nostro DB in memoria
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseInMemoryDatabase("VisitatoriDb"));
+
             // SIGNALR FOR COLLABORATIVE PAGES
             services.AddSignalR();
 
@@ -81,15 +88,10 @@ namespace Template.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Configure the HTTP request pipeline.
-            if (!env.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-
-                // Https redirection only in production
-                app.UseHsts();
-                app.UseHttpsRedirection();
-            }
+            // Forza sempre modalità sviluppo per vedere errori dettagliati
+            app.UseDeveloperExceptionPage();
+            app.UseHsts(); // puoi anche commentare questa se dà fastidio
+            app.UseHttpsRedirection();
 
             // Localization support if you want to
             app.UseRequestLocalization(SupportedCultures.CultureNames);
@@ -113,8 +115,16 @@ namespace Template.Web
                 endpoints.MapHub<TemplateHub>("/templateHub");
 
                 endpoints.MapAreaControllerRoute("Example", "Example", "Example/{controller=Users}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute("default", "{controller=Login}/{action=Login}");
+
+                // 🔧 Nuova route per il nostro controller
+                endpoints.MapControllerRoute(
+                    name: "visitatori",
+                    pattern: "RegistroVisitatori/{action=Index}/{id?}",
+                    defaults: new { controller = "RegistroVisitatori" });
             });
+
         }
     }
 

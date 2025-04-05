@@ -1,5 +1,6 @@
 ﻿@model Template.Web.Areas.Example.Users.EditViewModel
 @{
+    Layout = "../../../Views/Shared/_Layout.cshtml";
     if (Model.Id != null)
     {
         ViewData["Title"] = "Utente - " + Model.Email;
@@ -9,6 +10,7 @@
         ViewData["Title"] = "Inserimento nuovo utente";
     }
 }
+
 @section pageTitle{
     <nav class="navbar navbar-expand navbar-light flex-wrap">
         <div class="navbar-brand text-truncate">

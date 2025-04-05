@@ -14,38 +14,70 @@
 }
 <div id="pageId" class="onit-page">
     <div class="onit-page-sticky-top" id="onit-page-sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-dark onit-page-menu">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">
-                    <img class="onit-suites-logo" src="~/images/app-logo.png" />
+                <!-- Logo -->
+                <a class="navbar-brand d-flex align-items-center" href="/">
+                    <img src="~/images/app-logo.png" alt="Logo" class="me-2" style="height: 36px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fa-solid fa-bars"></i>
+
+                <!-- Toggler per mobile -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse flex-wrap" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ms-auto onit-page-menu-user">
-                        @if (identitaCorrente != null)
-                        {
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img class="user-profile-picture" src="@identitaCorrente.GravatarUrl" />&nbsp;@identitaCorrente.EmailUtenteCorrente
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end" role="menu">
-                                    <a class="dropdown-item" href="javascript:void(0)" onclick="javascript: document.getElementById('POST_LogOut').submit()" title="@SharedLocalizer["Chiudi sessione di lavoro"]">
-                                        <i class="fa-solid fa-right-from-bracket"></i>&nbsp;@SharedLocalizer["Esci"]
-                                    </a>
-                                    <form autocomplete="off" method="post" action="@Url.Action(MVC.Login.Logout())" id="POST_LogOut" display="none"></form>
-                                </div>
-                            </li>
-                        }
+
+                <!-- Navbar content -->
+                <div class="collapse navbar-collapse" id="mainNavbar">
+
+                    <!-- Left menu -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-regular fa-eye me-2"></i> Visitatori
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-light">
+                                <li><a class="dropdown-item" href="/RegistroVisitatori"><i class="fa-solid fa-list me-2"></i>Elenco</a></li>
+                                <li><a class="dropdown-item" href="/RegistroVisitatori/Crea"><i class="fa-solid fa-plus me-2"></i>Registra</a></li>
+                            </ul>
+                        </li>
                     </ul>
+
+                    <!-- Right user menu -->
+                    @if (identitaCorrente != null)
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="@identitaCorrente.GravatarUrl" class="rounded-circle me-2" style="height: 28px; width: 28px;" alt="Avatar">
+                                    <span class="d-none d-md-inline">@identitaCorrente.EmailUtenteCorrente</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-light">
+                                    <li>
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                           onclick="document.getElementById('POST_LogOut').submit()">
+                                            <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form method="post" id="POST_LogOut" action="@Url.Action(MVC.Login.Logout())" style="display:none;"></form>
+                    }
                 </div>
             </div>
         </nav>
+
         @RenderSection("pageTitle", false)
     </div>
     @RenderSection("pageSubtitle", false)
-    @RenderBody()
+    <main class="onit-main-content py-4">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
 </div>
 @section googlehead{
     @*<script async src="https://www.googletagmanager.com/gtag/js?id=UA-"></script>
