@@ -78,5 +78,6 @@ Requisito	Stato
 
 ## 🧑‍💻 Autore
 Bagnolini Tommaso <br>
-Laboratorio di Interfacce uomo-macchina
+Mat.: 0001071116 <br>
+Laboratorio di Interfacce uomo-macchina <br>
 2024/2025
