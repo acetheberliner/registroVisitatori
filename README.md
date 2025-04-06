@@ -77,6 +77,6 @@ Requisito	Stato
 - ✅ Styling sobrio e moderno	✔️ 
 
 ## 🧑‍💻 Autore
-Bagnolini Tommaso
+Bagnolini Tommaso <br>
 Laboratorio di Interfacce uomo-macchina
 2024/2025
