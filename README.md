@@ -56,7 +56,7 @@ Tutte le interfacce sono state ridisegnate per essere usabili, pulite e coerenti
 È stata testata la chiarezza delle interfacce con utenti non tecnici.
 Feedback positivi sulla semplicità d’uso e sulla chiarezza delle operazioni (ingresso/uscita).
 
-##🧩 Tecnologie usate
+## 🧩 Tecnologie usate
 - ASP.NET Core 6 MVC
 - Entity Framework Core
 - Bootstrap 5
