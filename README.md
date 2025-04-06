@@ -65,16 +65,16 @@ Feedback positivi sulla semplicità d’uso e sulla chiarezza delle operazioni (
 - TempData
 - Layout ONIT fornito dal template
 
-##🎯 Linee guida rispettate:
+## 🎯 Linee guida rispettate:
 Requisito	Stato
-✅ Utilizzo del template base	✔️ 
-✅ ASP.NET Core MVC	✔️ 
-✅ Layout responsive & Bootstrap	✔️ 
-✅ Wireframe & struttura coerente	✔️ 
-✅ Pagina principale + crea + modifica	✔️ 
-✅ Coerenza tra aree	✔️ 
-✅ Esperienza utente chiara	✔️ 
-✅ Styling sobrio e moderno	✔️ 
+- ✅ Utilizzo del template base	✔️ 
+- ✅ ASP.NET Core MVC	✔️ 
+- ✅ Layout responsive & Bootstrap	✔️ 
+- ✅ Wireframe & struttura coerente	✔️ 
+- ✅ Pagina principale + crea + modifica	✔️ 
+- ✅ Coerenza tra aree	✔️ 
+- ✅ Esperienza utente chiara	✔️ 
+- ✅ Styling sobrio e moderno	✔️ 
 
 ## 🧑‍💻 Autore
 Bagnolini Tommaso
