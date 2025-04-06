@@ -1,20 +1,59 @@
 ﻿@model IEnumerable<Template.Web.Models.Visitatore>
+
 @{
     ViewData["Title"] = "Registro Visitatori";
-    Layout = "_LayoutHtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-dark">Visitatori attualmente presenti</h2>
-        <a class="btn btn-primary shadow-sm" href="/RegistroVisitatori/Crea">
-            <i class="fa-solid fa-user-plus"></i> Registra nuovo
-        </a>
+@section pageTitle {
+    <nav class="navbar navbar-expand navbar-light flex-wrap onit-page-title">
+        <div class="flex flex-column p-3">
+            <h1 class="navbar-brand fw-semibold fs-4 m-0">
+                Registro Visitatori
+            </h1>
+            <div class="ms-auto">
+                <a class="btn btn-primary shadow-sm" href="/RegistroVisitatori/Crea">
+                    <i class="fa-solid fa-user-plus me-1"></i> Registra ingresso
+                </a>
+            </div>
+        </div>
+    </nav>
+}
+
+@section pageSubtitle {}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="fa-solid fa-circle-check me-2"></i>
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Chiudi"></button>
+    </div>
+}
+
+@section styles {
+	<style>
+		.header-card {
+            background-color: #28282B;
+			border-radius: 0.5rem;
+			padding: 1rem;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			min-height: 400px;
+		}
+	</style>
+}
+
+<div class="container mt-5 header-card w-80">
+    <div class="flex flex-column justify-content-between align-items-center mb-4 text-center">
+        <h2 class="fw-bold text-white mx-auto">Visitatori attualmente presenti</h2>
+        <p class="text-white small">
+            Da questa schermata puoi visualizzare i visitatori ancora presenti all’interno della struttura
+        </p>
     </div>
 
-    <div class="table-responsive shadow-sm">
+    <div class="table-responsive shadow-sm rounded-4 w-75 mx-auto">
         <table class="table table-hover align-middle">
-            <thead class="table-light">
+            <thead>
                 <tr>
                     <th>Nome</th>
                     <th>Cognome</th>
@@ -31,12 +70,15 @@
                         <td>@v.Nome</td>
                         <td>@v.Cognome</td>
                         <td>@v.Azienda</td>
-                        <td>@v.DataIngresso.ToString("g")</td>
+                        <td>
+                            @v.DataIngresso.ToString("g")
+                            <span class="badge bg-success ms-2">Presente</span>
+                        </td>
                         <td>@v.MotivoVisita</td>
                         <td>
                             <form method="post" asp-action="SegnaUscita" asp-route-id="@v.Id" class="m-0">
                                 <button class="btn btn-sm btn-outline-danger" title="Segna uscita">
-                                    <span>Segna uscita</span>
+                                    <i class="fa-solid fa-door-open me-1 text-muted"></i> Uscita
                                 </button>
                             </form>
                         </td>

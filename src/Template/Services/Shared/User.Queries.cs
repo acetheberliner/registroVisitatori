@@ -44,6 +44,7 @@ namespace Template.Services.Shared
             public string Email { get; set; }
             public string FirstName { get; set; }
             public string LastName { get; set; }
+            public string NickName { get; set; }
         }
     }
 
@@ -121,7 +122,8 @@ namespace Template.Services.Shared
                         Id = x.Id,
                         Email = x.Email,
                         FirstName = x.FirstName,
-                        LastName = x.LastName
+                        LastName = x.LastName,
+                        NickName = x.NickName
                     })
                     .ToArrayAsync(),
                 Count = await queryable.CountAsync()

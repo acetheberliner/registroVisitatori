@@ -1,35 +1,97 @@
 ﻿@model Template.Web.Models.Visitatore
+
 @{
     ViewData["Title"] = "Nuovo Visitatore";
-    Layout = "_LayoutHtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-5">
-    <h2 class="fw-bold mb-4 text-dark">Registra Nuovo Visitatore</h2>
+@section pageTitle {
+    <nav class="navbar navbar-expand navbar-light flex-wrap onit-page-title">
+        <div class="container-fluid">
+            <h1 class="navbar-brand fw-semibold fs-4 m-0">
+                Registra Nuovo Visitatore
+            </h1>
+            <div class="ms-auto">
+                <a href="/RegistroVisitatori" class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-arrow-left me-1"></i> Torna all'elenco
+                </a>
+            </div>
+        </div>
+    </nav>
+}
 
-    <form asp-action="Crea" method="post" class="row g-3">
-        <div class="col-md-6">
-            <label class="form-label">Nome</label>
-            <input asp-for="Nome" class="form-control" placeholder="Mario" />
-        </div>
-        <div class="col-md-6">
-            <label class="form-label">Cognome</label>
-            <input asp-for="Cognome" class="form-control" placeholder="Rossi" />
-        </div>
-        <div class="col-md-6">
-            <label class="form-label">Azienda</label>
-            <input asp-for="Azienda" class="form-control" placeholder="Azienda XYZ" />
-        </div>
-        <div class="col-md-6">
-            <label class="form-label">Motivo Visita</label>
-            <input asp-for="MotivoVisita" class="form-control" placeholder="Colloquio, consegna..." />
-        </div>
+@section styles {
+    <style>
+        .form-card {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
 
-        <div class="col-12 d-flex justify-content-between">
-            <a href="/RegistroVisitatori" class="btn btn-outline-secondary">Annulla</a>
-            <button type="submit" class="btn btn-success">
-                <i class="fa-solid fa-check"></i> Salva Visitatore
-            </button>
+            .form-card h2 {
+                font-size: 1.5rem;
+                font-weight: 600;
+                margin-bottom: 1.5rem;
+            }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        input.form-control {
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn-success {
+            font-weight: 500;
+        }
+    </style>
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+            <div class="form-card shadow-lg">
+                <h2 class="text-dark">Registrazione visitatore</h2>
+
+                <form asp-action="Crea" method="post" class="row g-4">
+                    <div class="col-md-6">
+                        <label class="form-label" asp-for="Nome">Nome</label>
+                        <input asp-for="Nome" class="form-control" placeholder="Inserisci nome" />
+                        <span asp-validation-for="Nome" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label" asp-for="Cognome">Cognome</label>
+                        <input asp-for="Cognome" class="form-control" placeholder="Inserisci cognome" />
+                        <span asp-validation-for="Cognome" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label" asp-for="Azienda">Azienda</label>
+                        <input asp-for="Azienda" class="form-control" placeholder="Inserisci azienda" />
+                        <span asp-validation-for="Azienda" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label" asp-for="MotivoVisita">Motivo della visita</label>
+                        <input asp-for="MotivoVisita" class="form-control" placeholder="Colloquio, consegna..." />
+                        <span asp-validation-for="MotivoVisita" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 d-flex justify-content-between pt-3">
+                        <a href="/RegistroVisitatori" class="btn btn-outline-secondary" title="Torna all'elenco senza salvare">
+                            <i class="fa-solid fa-xmark me-1"></i> Annulla
+                        </a>
+                        <button type="submit" class="btn btn-success" title="Salva i dati del visitatore">
+                            <i class="fa-solid fa-check me-1"></i> Salva
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
+    </div>
 </div>

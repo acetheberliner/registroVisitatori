@@ -1,9 +1,10 @@
 ﻿@model Template.Web.Areas.Example.Users.EditViewModel
 @{
     Layout = "../../../Views/Shared/_Layout.cshtml";
+
     if (Model.Id != null)
     {
-        ViewData["Title"] = "Utente - " + Model.Email;
+        ViewData["Title"] = "Utente (" + Model.Email + ")";
     }
     else
     {
@@ -11,13 +12,16 @@
     }
 }
 
-@section pageTitle{
-    <nav class="navbar navbar-expand navbar-light flex-wrap">
-        <div class="navbar-brand text-truncate">
+@section pageTitle {
+    <nav class="navbar navbar-expand navbar-light flex-wrap border-bottom mb-3">
+        <div class="navbar-brand fw-semibold fs-4">
             @ViewData["Title"]
         </div>
+
         <div class="dropdown ms-auto">
-            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuVaiA" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Collegamenti rapidi</button>
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuVaiA" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Utilità
+            </button>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuVaiA">
                 <a href="#" class="dropdown-item">Fatture</a>
                 <a href="#" class="dropdown-item">Ordini</a>
@@ -25,15 +29,17 @@
                 <a href="#" class="dropdown-item">Altre cose interessanti</a>
             </div>
         </div>
+
         @if (Model.Id != null)
         {
             <div class="dropdown">
-                <button class="btn btn-light ms-2" type="button" id="dropdownMenuAltreAzioni" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Altre azioni"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                <button class="btn btn-light ms-2" type="button" id="dropdownMenuAltreAzioni" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Altre azioni">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
 
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuAltreAzioni">
-                    <h6 class="dropdown-header">Altre azioni</h6>
                     <button class="dropdown-item text-danger" type="button" onclick="document.getElementById('delete-form').submit();">
-                        <i class="fa-solid fa-trash"></i>&nbsp;Elimina
+                        <i class="fa-solid fa-trash"></i> Elimina
                     </button>
                     <form hidden autocomplete="off" id="delete-form" method="post" action="@Url.Action(MVC.Example.Users.Delete())">
                         <input type="hidden" asp-for="Id" />
@@ -41,74 +47,122 @@
                 </div>
             </div>
         }
-        <button type="button" class="btn btn-success ms-2 px-4" onclick="document.getElementById('edit-form-submitter').click()"><span class="d-inline d-sm-none"><i class="fa-solid fa-floppy-disk"></i></span><span class="d-none d-sm-inline"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Salva</span></button>
     </nav>
 }
 
-<div>
-    <div class="container-lg">
-        <div class="row">
-            <div class="col-12">
-                <form autocomplete="off" method="post" class="onit-form-sm" action="@Url.Action(MVC.Example.Users.Edit())" id="edit-form">
-                    <!-- Enables form submit on Enter -->
-                    <input id="edit-form-submitter" class="d-none" type="submit" />
-                    <fieldset class="pb-3">
-                        <legend class="sticky-top">Infomazioni generali</legend>
+@section styles {
+    <style>
+        .form-card {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+        }
 
-                        <div class="row">
-                            <div class="form-group col-md-6 col-lg-8 col-xl-6">
+            .form-card legend {
+                font-size: 1.25rem;
+                font-weight: 600;
+                border: none;
+                margin-bottom: 1.5rem;
+            }
+
+        label {
+            font-weight: 500;
+        }
+
+        input.form-control {
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .text-danger {
+            font-size: 0.85rem;
+        }
+
+        .btn-success {
+            font-weight: 500;
+        }
+
+        .sticky-top {
+            background-color: #fff;
+            z-index: 1;
+        }
+    </style>
+}
+
+<div class="container-lg py-3">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+            <div class="form-card shadow-lg">
+                <form autocomplete="off" method="post" class="onit-form-sm" action="@Url.Action(MVC.Example.Users.Edit())" id="edit-form">
+                    <input id="edit-form-submitter" class="d-none" type="submit" />
+
+                    <fieldset class="pb-3">
+                        <legend>Informazioni generali</legend>
+
+                        <div class="row g-3">
+                            <div class="form-group col-md-12">
                                 <label asp-for="Email"></label>
-                                <input class="form-control form-control-sm" asp-for="Email">
+                                <input class="form-control" asp-for="Email" />
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-3 col-lg-4 col-xl-6">
+
+                            <div class="form-group col-md-6">
                                 <label asp-for="FirstName"></label>
-                                <input class="form-control form-control-sm" asp-for="FirstName">
+                                <input class="form-control" asp-for="FirstName" />
                                 <span asp-validation-for="FirstName" class="text-danger"></span>
                             </div>
-                            <div class="form-group col-md-6 col-lg-4 col-xl-6">
+
+                            <div class="form-group col-md-6">
                                 <label asp-for="LastName"></label>
-                                <input class="form-control form-control-sm" asp-for="LastName">
+                                <input class="form-control" asp-for="LastName" />
                                 <span asp-validation-for="LastName" class="text-danger"></span>
                             </div>
-                            <div class="form-group col-md-6 col-lg-4 col-xl-6">
+
+                            <div class="form-group col-md-6 mx-auto">
                                 <label asp-for="NickName"></label>
-                                <input class="form-control form-control-sm" asp-for="NickName">
+                                <input class="form-control" asp-for="NickName" />
                                 <span asp-validation-for="NickName" class="text-danger"></span>
                             </div>
                         </div>
                     </fieldset>
                 </form>
+                <div class="text-end">
+                    <button type="button" class="btn btn-success ms-2 px-4" onclick="document.getElementById('edit-form-submitter').click()">
+                        <i class="fa-solid fa-floppy-disk"></i> <span class="d-none d-sm-inline">Salva</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="text-center">
+    <div class="text-center mt-4">
         <div id="lostConnection" class="d-none text-white">
             <h3>Ho perso la connessione con il server</h3>
-            <p><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;Attendi, sto riprovando a connettermi per te</p>
+            <p><i class="fa fa-circle-o-notch fa-spin"></i> Attendi, sto riprovando a connettermi per te</p>
         </div>
         <div id="lostConnectionManualRetry" class="d-none text-white">
             <h3>Ho perso la connessione con il server e non riesco più a ricollegarmi</h3>
             <p>Prova ad aggiornare la pagina manualmente</p>
-            <button class="btn btn-primary" onclick="location.reload(true)"><i class="fa fa-refresh"></i>&nbsp;Ricarica la pagina</button>
+            <button class="btn btn-primary" onclick="location.reload(true)">
+                <i class="fa fa-refresh"></i> Ricarica la pagina
+            </button>
         </div>
     </div>
 </div>
-@section scripts{
+
+@section scripts {
     <script src="/js/bundle-vue.js" asp-append-version="true"></script>
     <script src="~/Areas/Example/Users/Edit.js" asp-append-version="true"></script>
-
     <script src="~/node_modules/@@microsoft/signalr/dist/browser/signalr.js" asp-append-version="true"></script>
     <script src="~/js/signalRConnectionManager.js" asp-append-version="true"></script>
 
     <script type="application/json" id="Seed_JSON">
         @Html.Raw(Model.ToJson())
     </script>
-    <script type="text/javascript">
-        // SOSTITUIRE @Model.Id con ID del gruppo
+
+    <script>
         var signalRManager = new SignalRConnectionManager("/templateHub", "@Model.Id", "JoinGroup", "LeaveGroup");
         signalRManager.registerEvents();
         signalRManager.startConnection();
@@ -118,9 +172,7 @@
         var vueModel = new Vue({
             el: '#pageId',
             data: editModel,
-            computed: {
-            }
+            computed: {}
         });
-
     </script>
 }

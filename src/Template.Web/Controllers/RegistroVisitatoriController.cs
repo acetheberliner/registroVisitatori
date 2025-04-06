@@ -39,6 +39,9 @@ namespace Template.Web.Controllers
             {
                 _context.Add(visitatore);
                 await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Visitatore registrato con successo!";
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -54,6 +57,8 @@ namespace Template.Web.Controllers
 
             visitatore.DataUscita = DateTime.Now;
             await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Uscita registrata correttamente!";
 
             return RedirectToAction(nameof(Index));
         }
