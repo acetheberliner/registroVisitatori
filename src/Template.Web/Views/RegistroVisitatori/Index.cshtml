@@ -8,9 +8,7 @@
 @section pageTitle {
     <nav class="navbar navbar-expand navbar-light flex-wrap onit-page-title">
         <div class="flex flex-column p-3">
-            <h1 class="navbar-brand fw-semibold fs-4 m-0">
-                Registro Visitatori
-            </h1>
+            <h1 class="navbar-brand fw-semibold fs-4 m-0">Registro Visitatori</h1>
             <div class="ms-auto">
                 <a class="btn btn-primary shadow-sm" href="/RegistroVisitatori/Crea">
                     <i class="fa-solid fa-user-plus me-1"></i> Registra ingresso
@@ -20,7 +18,8 @@
     </nav>
 }
 
-@section pageSubtitle {}
+@section pageSubtitle {
+}
 
 @if (TempData["SuccessMessage"] != null)
 {
@@ -32,59 +31,108 @@
 }
 
 @section styles {
-	<style>
-		.header-card {
+    <style>
+        .header-card {
             background-color: #28282B;
-			border-radius: 0.5rem;
-			padding: 1rem;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-			min-height: 400px;
-		}
-	</style>
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-height: 400px;
+        }
+
+        .visitatore-uscito {
+            background: linear-gradient(to right, #ffe6e6, #fff0f0);
+            color: #999;
+            font-style: italic;
+            opacity: 0.85;
+        }
+
+        .no-results {
+            color: #bbb;
+            text-align: center;
+            font-style: italic;
+            padding: 2rem;
+        }
+    </style>
 }
 
 <div class="container mt-5 header-card w-80">
     <div class="flex flex-column justify-content-between align-items-center mb-4 text-center">
         <h2 class="fw-bold text-white mx-auto">Visitatori attualmente presenti</h2>
-        <p class="text-white small">
-            Da questa schermata puoi visualizzare i visitatori ancora presenti all’interno della struttura
-        </p>
+        <p class="text-white small">Da questa schermata puoi visualizzare i visitatori ancora presenti all’interno della struttura</p>
     </div>
 
-    <div class="table-responsive shadow-sm rounded-4 w-75 mx-auto">
-        <table class="table table-hover align-middle">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Cognome</th>
-                    <th>Azienda</th>
-                    <th>Ingresso</th>
-                    <th>Motivo</th>
-                    <th>Uscita</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var v in Model)
-                {
+    @if (!Model.Any())
+    {
+        <div class="no-results text-white text-center">
+            <i class="fa-solid fa-user-slash fa-2x mb-2"></i><br />
+            Nessun visitatore registrato nel sistema.
+        </div>
+    }
+    else
+    {
+        <div class="flex flex-column justify-content-between align-items-center mb-4 text-center">
+            @if (!Model.Any(v => v.DataUscita == null))
+            {
+                <div class="text-white mb-3">
+                    <i class="fa-solid fa-user-slash fa-2x mb-2"></i><br />
+                    <em>Nessun visitatore attualmente presente nella struttura.</em>
+                </div>
+            }
+        </div>
+
+        <div class="table-responsive shadow-sm rounded-4 w-75 mx-auto">
+            <table class="table table-hover align-middle">
+                <thead>
                     <tr>
-                        <td>@v.Nome</td>
-                        <td>@v.Cognome</td>
-                        <td>@v.Azienda</td>
-                        <td>
-                            @v.DataIngresso.ToString("g")
-                            <span class="badge bg-success ms-2">Presente</span>
-                        </td>
-                        <td>@v.MotivoVisita</td>
-                        <td>
-                            <form method="post" asp-action="SegnaUscita" asp-route-id="@v.Id" class="m-0">
-                                <button class="btn btn-sm btn-outline-danger" title="Segna uscita">
-                                    <i class="fa-solid fa-door-open me-1 text-muted"></i> Uscita
-                                </button>
-                            </form>
-                        </td>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Azienda</th>
+                        <th>Ingresso</th>
+                        <th>Motivo</th>
+                        <th>Uscita</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach (var v in Model)
+                    {
+                        var isUscito = v.DataUscita != null;
+                        var uscitaStr = isUscito ? v.DataUscita?.ToString("g") : null;
+                        var rowClass = isUscito ? "table-danger" : "";
+
+                        <tr class="@rowClass">
+                            <td>@v.Nome</td>
+                            <td>@v.Cognome</td>
+                            <td>@v.Azienda</td>
+                            <td>
+                                @v.DataIngresso.ToString("g")
+                                @if (!isUscito)
+                                {
+                                    <span class="badge bg-success ms-2">Presente</span>
+                                }
+                            </td>
+                            <td>@v.MotivoVisita</td>
+                            <td>
+                                @if (!isUscito)
+                                {
+                                    <form method="post" asp-action="SegnaUscita" asp-route-id="@v.Id" class="m-0">
+                                        <button class="btn btn-sm btn-outline-danger" title="Segna uscita">
+                                            <i class="fa-solid fa-door-open me-1 text-muted"></i> Uscita
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small">
+                                        <i class="fa-solid fa-check-circle text-success me-1"></i>
+                                        Uscita: @uscitaStr
+                                    </span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
 </div>

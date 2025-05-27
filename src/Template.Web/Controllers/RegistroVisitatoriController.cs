@@ -9,7 +9,6 @@ using Template.Web.Models;
 namespace Template.Web.Controllers
 {
     public partial class RegistroVisitatoriController : Controller
-
     {
         private readonly AppDbContext _context;
 
@@ -18,20 +17,23 @@ namespace Template.Web.Controllers
             _context = context;
         }
 
+        // ✅ Mostra TUTTI i visitatori (presenti e già usciti), ordinati per ingresso decrescente
         public virtual async Task<IActionResult> Index()
         {
-            var presenti = await _context.Visitatori
-                .Where(v => v.DataUscita == null)
+            var visitatori = await _context.Visitatori
+                .OrderByDescending(v => v.DataIngresso)
                 .ToListAsync();
 
-            return View("~/Views/RegistroVisitatori/Index.cshtml", presenti);
+            return View("~/Views/RegistroVisitatori/Index.cshtml", visitatori);
         }
 
+        // ✅ Mostra la form di creazione nuovo visitatore
         public virtual IActionResult Crea()
         {
             return View("~/Views/RegistroVisitatori/Crea.cshtml");
         }
 
+        // ✅ Salva un nuovo visitatore e mostra messaggio di successo
         [HttpPost]
         public virtual async Task<IActionResult> Crea(Visitatore visitatore)
         {
@@ -41,13 +43,13 @@ namespace Template.Web.Controllers
                 await _context.SaveChangesAsync();
 
                 TempData["SuccessMessage"] = "Visitatore registrato con successo!";
-
                 return RedirectToAction(nameof(Index));
             }
 
             return View(visitatore);
         }
 
+        // ✅ Segna l'orario di uscita di un visitatore e mostra conferma
         [HttpPost]
         public virtual async Task<IActionResult> SegnaUscita(int id)
         {
@@ -59,7 +61,6 @@ namespace Template.Web.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Uscita registrata correttamente!";
-
             return RedirectToAction(nameof(Index));
         }
     }

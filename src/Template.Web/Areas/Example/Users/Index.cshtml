@@ -12,6 +12,7 @@
                 @ViewData["Title"]
                 <small class="text-muted fs-6" title="numero di elementi individuati con i filtri attuali">(@Model.TotalItems.ToString("N0"))</small>
             </a>
+            <p class="text-muted small">Visualizza, cerca e modifica gli utenti registrati nel sistema</p>
             <ul class="navbar-nav flex-wrap ms-auto">
                 <li>
                     <a class="btn btn-primary ms-2" href="@Url.Action(MVC.Example.Users.New())" title="Inserisci un nuovo elemento">
