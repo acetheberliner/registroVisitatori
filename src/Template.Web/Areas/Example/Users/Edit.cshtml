@@ -18,18 +18,6 @@
             @ViewData["Title"]
         </div>
 
-        <div class="dropdown ms-auto">
-            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuVaiA" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Utilità
-            </button>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuVaiA">
-                <a href="#" class="dropdown-item">Fatture</a>
-                <a href="#" class="dropdown-item">Ordini</a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">Altre cose interessanti</a>
-            </div>
-        </div>
-
         @if (Model.Id != null)
         {
             <div class="dropdown">
@@ -52,6 +40,10 @@
 
 @section styles {
     <style>
+        .navbar-brand {
+            padding: 0.5rem 0.8rem;
+        }
+
         .form-card {
             background: #fff;
             border: 1px solid #dee2e6;
