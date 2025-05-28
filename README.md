@@ -46,16 +46,17 @@ Tutte le interfacce sono state ridisegnate per essere usabili, pulite e coerenti
 
 3. Esegui Template.Web con F5
 
-opt. Esecuzione su macOS 
-  su /src
+opt. Esecuzione su macOS: 
+
+  in /src eseguire per installare le dipendenze npm nel file package.json
   ```bash
    npm install
   ```
-  +
+  poi eseguire la build del progetto tramite SDK .NET
   ```bash
    dotnet build Template.sln
   ```
-  + 
+  infine eseguire il progetto tramite run
   ```bash
    dotnet run --project Template.Web
   ```
