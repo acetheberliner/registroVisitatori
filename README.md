@@ -64,7 +64,7 @@ opt. Esecuzione su macOS:
 5. Verrà aperto il browser su https://localhost:7132/
 
 6. Effettua il login con:
-     Email: email1@test.it
+     Email: mario.rossi@example.com
      Password: Prova
 
 ## 🧪 Test di usabilità
