@@ -4,7 +4,7 @@
 
     if (Model.Id != null)
     {
-        ViewData["Title"] = "Utente (" + Model.Email + ")";
+        ViewData["Title"] = Model.Email;
     }
     else
     {
@@ -13,7 +13,7 @@
 }
 
 @section pageTitle {
-    <nav class="navbar navbar-expand navbar-light flex-wrap border-bottom mb-3">
+    <nav class="navbar navbar-expand navbar-light flex-wrap mb-3 justify-content-center">
         <div class="navbar-brand fw-semibold fs-4">
             @ViewData["Title"]
         </div>
@@ -44,6 +44,11 @@
             padding: 0.5rem 0.8rem;
         }
 
+        .navbar-expand {
+            justify-content: space-between;
+            padding: 0px 1rem;
+        }
+
         .form-card {
             background: #fff;
             border: 1px solid #dee2e6;
@@ -56,7 +61,7 @@
                 font-size: 1.25rem;
                 font-weight: 600;
                 border: none;
-                margin-bottom: 1.5rem;
+                margin-bottom: 0.5rem;
             }
 
         label {
@@ -91,7 +96,7 @@
                     <input id="edit-form-submitter" class="d-none" type="submit" />
 
                     <fieldset class="pb-3">
-                        <legend>Informazioni generali</legend>
+                        <legend>Modifica informazioni</legend>
 
                         <div class="row g-3">
                             <div class="form-group col-md-12">
