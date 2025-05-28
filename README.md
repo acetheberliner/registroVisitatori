@@ -10,7 +10,7 @@ L'applicazione consente la gestione dei visitatori all'interno di un'azienda, co
 - ✅ Utilizzo del **template fornito** con struttura ASP.NET Core MVC
 - ✅ Implementazione su **ASP.NET Core MVC + Entity Framework**
 - ✅ Database in memoria (**InMemoryDb**) precaricato all’avvio
-- ✅ Login funzionante con utenti seed (email1@test.it / password: Prova)
+- ✅ Login funzionante con utenti seed (user: mario.rossi@example.com / password: Prova)
 - ✅ Funzionalità complete:
   - Registrazione nuovo visitatore
   - Visualizzazione visitatori presenti
@@ -42,13 +42,27 @@ Tutte le interfacce sono state ridisegnate per essere usabili, pulite e coerenti
    ```bash
    git clone https://github.com/acetheberliner/registroVisitatori.git
    ```
-2. Apri il progetto in Visual Studio
+2. Apri il progetto in Visual Studio (VSCode per macOS)
 
 3. Esegui Template.Web con F5
 
-4. Verrà aperto il browser su https://localhost:7132/
+opt. Esecuzione su macOS 
+  su /src
+  ```bash
+   npm install
+  ```
+  +
+  ```bash
+   dotnet build Template.sln
+  ```
+  + 
+  ```bash
+   dotnet run --project Template.Web
+  ```
 
-5. Effettua il login con:
+5. Verrà aperto il browser su https://localhost:7132/
+
+6. Effettua il login con:
      Email: email1@test.it
      Password: Prova
 
